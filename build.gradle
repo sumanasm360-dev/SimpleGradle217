@@ -16,7 +16,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.example.App'
+    mainClass = 'com.sumanasm.App'
 }
 
 task display {

@@ -5,19 +5,34 @@ pipeline {
         jdk 'JDK-17'
     }
 
+    options {
+        skipDefaultCheckout(true)
+        timestamps()
+    }
+
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/sumanasm360-dev/SimpleGradle217.git',
-                    credentialsId: 'sumanasm360-dev'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/sumanasm360-dev/SimpleGradle217.git',
+                        credentialsId: 'sumanasm360-dev'
+                    ]]
+                ])
+            }
+        }
+
+        stage('Prepare Gradle') {
+            steps {
+                sh 'chmod +x gradlew'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'chmod +x gradlew'
                 sh './gradlew clean build'
             }
         }
@@ -41,6 +56,9 @@ pipeline {
         }
         failure {
             echo 'Build failed!'
+        }
+        always {
+            echo 'Pipeline finished.'
         }
     }
 }

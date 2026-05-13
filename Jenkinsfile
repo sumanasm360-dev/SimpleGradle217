@@ -9,7 +9,9 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/sumansm360-dev/SimpleGradle217.git'
+                git branch: 'main',
+                    url: 'https://github.com/sumansm360-dev/SimpleGradle217.git',
+                    credentialsId: 'sumanasm360-dev'
             }
         }
 

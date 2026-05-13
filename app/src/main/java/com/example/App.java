@@ -1,4 +1,4 @@
-cpackage com.example;
+package com.example;
 
 public class App {
     public String getGreeting() {
